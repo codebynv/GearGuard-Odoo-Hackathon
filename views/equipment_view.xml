@@ -1,15 +1,67 @@
 <odoo>
-    <record id="view_equipment_form" model="ir.ui.view">
-        <field name="name">equipment.form</field>
+    <record id="view_gearguard_equipment_tree" model="ir.ui.view">
+        <field name="name">gearguard.equipment.tree</field>
+        <field name="model">gearguard.equipment</field>
+        <field name="arch" type="xml">
+            <tree string="Equipment">
+                <field name="asset_code"/>
+                <field name="name"/>
+                <field name="serial_number"/>
+                <field name="location"/>
+                <field name="maintenance_team"/>
+                <field name="status" widget="badge"/>
+                <field name="next_maintenance_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_gearguard_equipment_form" model="ir.ui.view">
+        <field name="name">gearguard.equipment.form</field>
         <field name="model">gearguard.equipment</field>
         <field name="arch" type="xml">
             <form string="Equipment">
-                <group>
-                    <field name="name"/>
-                    <field name="serial_number"/>
-                    <field name="maintenance_team"/>
-                </group>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="e.g. CNC Machine 01"/></h1>
+                    </div>
+                    <group>
+                        <group string="Equipment Details">
+                            <field name="asset_code"/>
+                            <field name="serial_number"/>
+                            <field name="department"/>
+                            <field name="location"/>
+                        </group>
+                        <group string="Maintenance">
+                            <field name="maintenance_team"/>
+                            <field name="status"/>
+                            <field name="last_maintenance_date"/>
+                            <field name="next_maintenance_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="notes" placeholder="Add equipment notes..."/>
+                        </page>
+                    </notebook>
+                </sheet>
             </form>
+        </field>
+    </record>
+
+    <record id="view_gearguard_equipment_search" model="ir.ui.view">
+        <field name="name">gearguard.equipment.search</field>
+        <field name="model">gearguard.equipment</field>
+        <field name="arch" type="xml">
+            <search string="Search Equipment">
+                <field name="name"/>
+                <field name="asset_code"/>
+                <field name="serial_number"/>
+                <field name="location"/>
+                <field name="status"/>
+                <filter name="active" string="Active" domain="[('status','=','active')]"/>
+                <filter name="maintenance" string="Under Maintenance" domain="[('status','=','maintenance')]"/>
+            </search>
         </field>
     </record>
 </odoo>

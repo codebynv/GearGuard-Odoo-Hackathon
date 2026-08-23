@@ -1,16 +1,74 @@
 <odoo>
-    <record id="view_request_form" model="ir.ui.view">
-        <field name="name">maintenance.request.form</field>
+    <record id="view_gearguard_request_tree" model="ir.ui.view">
+        <field name="name">gearguard.request.tree</field>
+        <field name="model">gearguard.request</field>
+        <field name="arch" type="xml">
+            <tree string="Maintenance Requests">
+                <field name="subject"/>
+                <field name="equipment_id"/>
+                <field name="technician"/>
+                <field name="priority" widget="badge"/>
+                <field name="request_date"/>
+                <field name="scheduled_date"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_gearguard_request_form" model="ir.ui.view">
+        <field name="name">gearguard.request.form</field>
         <field name="model">gearguard.request</field>
         <field name="arch" type="xml">
             <form string="Maintenance Request">
-                <group>
-                    <field name="subject"/>
-                    <field name="equipment_id"/>
-                    <field name="technician"/>
-                    <field name="state"/>
-                </group>
+                <header>
+                    <button name="action_start" type="object" string="Start Work" class="btn-primary" invisible="state != 'new'"/>
+                    <button name="action_repair" type="object" string="Mark Repaired" class="btn-success" invisible="state != 'progress'"/>
+                    <button name="action_cancel" type="object" string="Cancel" invisible="state in ('done', 'cancelled')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="new,progress,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="subject" class="oe_edit_only"/>
+                        <h1><field name="subject" placeholder="Describe the maintenance issue..."/></h1>
+                    </div>
+                    <group>
+                        <group string="Request Details">
+                            <field name="equipment_id"/>
+                            <field name="technician"/>
+                            <field name="priority"/>
+                        </group>
+                        <group string="Schedule">
+                            <field name="request_date"/>
+                            <field name="scheduled_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Issue">
+                            <field name="description" placeholder="Explain the problem..."/>
+                        </page>
+                        <page string="Resolution">
+                            <field name="resolution" placeholder="Record the work completed..."/>
+                        </page>
+                    </notebook>
+                </sheet>
             </form>
+        </field>
+    </record>
+
+    <record id="view_gearguard_request_search" model="ir.ui.view">
+        <field name="name">gearguard.request.search</field>
+        <field name="model">gearguard.request</field>
+        <field name="arch" type="xml">
+            <search string="Search Maintenance Requests">
+                <field name="subject"/>
+                <field name="equipment_id"/>
+                <field name="technician"/>
+                <field name="state"/>
+                <field name="priority"/>
+                <filter name="new" string="New" domain="[('state','=','new')]"/>
+                <filter name="progress" string="In Progress" domain="[('state','=','progress')]"/>
+                <filter name="done" string="Repaired" domain="[('state','=','done')]"/>
+            </search>
         </field>
     </record>
 </odoo>

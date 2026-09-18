@@ -4,14 +4,19 @@
         <field name="res_model">gearguard.equipment</field>
         <field name="view_mode">tree,form</field>
     </record>
-
     <record id="action_gearguard_requests" model="ir.actions.act_window">
         <field name="name">Maintenance Requests</field>
         <field name="res_model">gearguard.request</field>
+        <field name="view_mode">tree,form,graph,pivot</field>
+    </record>
+    <record id="action_gearguard_plans" model="ir.actions.act_window">
+        <field name="name">Preventive Maintenance</field>
+        <field name="res_model">gearguard.plan</field>
         <field name="view_mode">tree,form</field>
     </record>
-
     <menuitem id="menu_gearguard_root" name="GearGuard" sequence="10"/>
+    <menuitem id="menu_gearguard_dashboard" name="Operations Dashboard" parent="menu_gearguard_root" action="action_gearguard_dashboard" sequence="5"/>
     <menuitem id="menu_gearguard_equipment" name="Equipment" parent="menu_gearguard_root" action="action_gearguard_equipment" sequence="10"/>
     <menuitem id="menu_gearguard_requests" name="Maintenance Requests" parent="menu_gearguard_root" action="action_gearguard_requests" sequence="20"/>
+    <menuitem id="menu_gearguard_plans" name="Preventive Maintenance" parent="menu_gearguard_root" action="action_gearguard_plans" sequence="30"/>
 </odoo>

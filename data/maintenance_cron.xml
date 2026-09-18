@@ -1,0 +1,12 @@
+<odoo>
+    <record id="ir_cron_gearguard_preventive_maintenance" model="ir.cron">
+        <field name="name">GearGuard: Generate Preventive Maintenance Requests</field>
+        <field name="model_id" ref="model_gearguard_plan"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_generate_due_requests()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active">True</field>
+    </record>
+</odoo>

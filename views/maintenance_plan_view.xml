@@ -1,0 +1,11 @@
+<odoo>
+    <record id="view_gearguard_plan_tree" model="ir.ui.view">
+        <field name="name">gearguard.plan.tree</field>
+        <field name="model">gearguard.plan</field>
+        <field name="arch" type="xml"><tree string="Preventive Maintenance Plans"><field name="name"/><field name="equipment_id"/><field name="frequency"/><field name="next_run_date"/><field name="active"/></tree></field>
+    </record>
+    <record id="view_gearguard_plan_form" model="ir.ui.view">
+        <field name="name">gearguard.plan.form</field>
+        <field name="model">gearguard.plan</field>
+        <field name="arch" type="xml"><form string="Preventive Maintenance Plan"><header><button name="action_generate_request" type="object" string="Generate Request" class="btn-primary"/></header><sheet><group><field name="name"/><field name="equipment_id"/><field name="frequency"/><field name="next_run_date"/><field name="active"/></group><field name="instructions" placeholder="Checklist or maintenance instructions..."/></sheet></form></record>
+</odoo>

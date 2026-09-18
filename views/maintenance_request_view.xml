@@ -8,8 +8,8 @@
                 <field name="equipment_id"/>
                 <field name="technician"/>
                 <field name="priority" widget="badge"/>
-                <field name="request_date"/>
                 <field name="scheduled_date"/>
+                <field name="is_overdue" widget="boolean"/>
                 <field name="state" widget="badge"/>
             </tree>
         </field>
@@ -40,6 +40,8 @@
                         <group string="Schedule">
                             <field name="request_date"/>
                             <field name="scheduled_date"/>
+                            <field name="completed_date"/>
+                            <field name="is_overdue"/>
                         </group>
                     </group>
                     <notebook>
@@ -68,6 +70,8 @@
                 <filter name="new" string="New" domain="[('state','=','new')]"/>
                 <filter name="progress" string="In Progress" domain="[('state','=','progress')]"/>
                 <filter name="done" string="Repaired" domain="[('state','=','done')]"/>
+                <filter name="overdue" string="Overdue" domain="[('is_overdue','=',True)]"/>
+                <filter name="critical" string="Critical" domain="[('priority','=','3')]"/>
             </search>
         </field>
     </record>

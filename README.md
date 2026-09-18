@@ -272,7 +272,7 @@ The implementation is intentionally focused on the core workflow so it can be de
 | Role | Member |
 |---|---|
 | Team Leader | **Nirav Vala** |
-| Team Member | **Shruti** |
+| Team Member | **Shruti Soni** |
 
 ---
 

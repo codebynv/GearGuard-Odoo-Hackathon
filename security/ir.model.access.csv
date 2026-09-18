@@ -1,3 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_gearguard_equipment_user,gearguard.equipment.user,model_gearguard_equipment,base.group_user,1,1,1,1
 access_gearguard_request_user,gearguard.request.user,model_gearguard_request,base.group_user,1,1,1,1
+access_gearguard_plan_user,gearguard.plan.user,model_gearguard_plan,base.group_user,1,1,1,1
+access_gearguard_dashboard_user,gearguard.dashboard.user,model_gearguard_dashboard,base.group_user,1,0,0,0

@@ -1,0 +1,4 @@
+<odoo>
+    <record id="view_gearguard_request_graph" model="ir.ui.view"><field name="name">gearguard.request.graph</field><field name="model">gearguard.request</field><field name="arch" type="xml"><graph string="Maintenance Analytics" type="bar"><field name="priority" type="row"/><field name="state" type="col"/></graph></field></record>
+    <record id="view_gearguard_request_pivot" model="ir.ui.view"><field name="name">gearguard.request.pivot</field><field name="model">gearguard.request</field><field name="arch" type="xml"><pivot string="Maintenance Analytics"><field name="equipment_id" type="row"/><field name="state" type="col"/></pivot></field></record>
+</odoo>

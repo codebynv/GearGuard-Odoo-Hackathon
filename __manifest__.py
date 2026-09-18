@@ -1,10 +1,10 @@
 {
     'name': 'GearGuard - Smart Equipment Maintenance Tracker',
-    'version': '1.1.0',
-    'summary': 'Centralized equipment and maintenance request tracking',
+    'version': '2.0.0',
+    'summary': 'Equipment lifecycle, preventive maintenance and maintenance operations',
     'description': """
-GearGuard provides a lightweight maintenance workflow for organizations
-that need visibility over equipment, repair requests, technicians and status.
+GearGuard manages equipment, maintenance requests, preventive maintenance plans,
+operational KPIs and maintenance workflows from one Odoo application.
     """,
     'category': 'Operations/Maintenance',
     'author': 'GearGuard Team',
@@ -12,8 +12,12 @@ that need visibility over equipment, repair requests, technicians and status.
     'depends': ['base'],
     'data': [
         'security/ir.model.access.csv',
+        'data/maintenance_cron.xml',
         'views/equipment_view.xml',
         'views/maintenance_request_view.xml',
+        'views/maintenance_request_graph.xml',
+        'views/maintenance_plan_view.xml',
+        'views/maintenance_dashboard_view.xml',
         'views/gearguard_menu.xml',
     ],
     'installable': True,

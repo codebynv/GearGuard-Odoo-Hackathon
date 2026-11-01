@@ -58,11 +58,22 @@ class MaintenanceRequest(models.Model):
                 raise UserError('Only in-progress requests can be repaired.')
             if not record.resolution:
                 raise UserError('Add the resolution / work completed before repairing this request.')
-            record.write({'state': 'done', 'completed_date': fields.Date.context_today(record)})
+
+            today = fields.Date.context_today(record)
+            record.write({'state': 'done', 'completed_date': today})
             equipment = record.equipment_id
-            equipment.write({'status': 'active', 'last_maintenance_date': fields.Date.context_today(record)})
+            other_open = self.search_count([
+                ('equipment_id', '=', equipment.id),
+                ('id', '!=', record.id),
+                ('state', 'in', ('new', 'progress')),
+            ])
+
+            values = {'last_maintenance_date': today}
+            if not other_open and equipment.status == 'maintenance':
+                values['status'] = 'active'
             if not equipment.next_maintenance_date:
-                equipment.write({'next_maintenance_date': fields.Date.add(fields.Date.context_today(record), months=3)})
+                values['next_maintenance_date'] = fields.Date.add(today, months=3)
+            equipment.write(values)
         return True
 
     def action_cancel(self):

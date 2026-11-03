@@ -52,8 +52,21 @@ class Equipment(models.Model):
     def _search_maintenance_due(self, operator, value):
         if operator not in ('=', '!='):
             raise ValidationError('Maintenance Due only supports = and != searches.')
-        due_domain = [('next_maintenance_date', '<=', fields.Date.context_today(self)), ('next_maintenance_date', '!=', False), ('status', '!=', 'retired')]
-        return due_domain if (operator == '=' and value) or (operator == '!=' and not value) else ['|', ('next_maintenance_date', '>', fields.Date.context_today(self)), ('next_maintenance_date', '=', False)]
+
+        today = fields.Date.context_today(self)
+        due_domain = [
+            ('next_maintenance_date', '<=', today),
+            ('next_maintenance_date', '!=', False),
+            ('status', '!=', 'retired'),
+        ]
+        not_due_domain = [
+            '|', '|',
+            ('status', '=', 'retired'),
+            ('next_maintenance_date', '>', today),
+            ('next_maintenance_date', '=', False),
+        ]
+        is_positive_search = (operator == '=' and bool(value)) or (operator == '!=' and not bool(value))
+        return due_domain if is_positive_search else not_due_domain
 
     def action_view_requests(self):
         self.ensure_one()

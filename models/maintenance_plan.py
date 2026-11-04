@@ -1,5 +1,5 @@
 from odoo import api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 
 
 class MaintenancePlan(models.Model):
@@ -27,7 +27,12 @@ class MaintenancePlan(models.Model):
 
     def action_generate_request(self):
         self.ensure_one()
-        request = self.env['gearguard.request'].create({
+        if not self.active:
+            raise UserError('Inactive maintenance plans cannot generate requests.')
+        if self.equipment_id.status == 'retired':
+            raise UserError('Retired equipment cannot receive maintenance requests.')
+
+        request = self.env['gearguard.request'].create({}
             'subject': 'Preventive Maintenance: %s' % self.name,
             'equipment_id': self.equipment_id.id,
             'scheduled_date': self.next_run_date,

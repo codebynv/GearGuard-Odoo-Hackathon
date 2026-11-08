@@ -42,7 +42,7 @@ class MaintenanceRequest(models.Model):
         if operator not in ('=', '!='):
             raise ValidationError('Overdue only supports = and != searches.')
         domain = [('scheduled_date', '<', fields.Date.context_today(self)), ('scheduled_date', '!=', False), ('state', 'in', ('new', 'progress'))]
-        return domain if (operator == '=' and value) or (operator == '!=' and not value) else ['|', ('scheduled_date', '>=', fields.Date.context_today(self)), ('scheduled_date', '=', False)]
+        return domain if (operator == '=' and value) or (operator == '!=' and not value) else ['|', '|', ('state', 'not in', ('new', 'progress')), ('scheduled_date', '>=', fields.Date.context_today(self)), ('scheduled_date', '=', False)]
 
     def action_start(self):
         for record in self:

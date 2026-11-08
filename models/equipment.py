@@ -33,6 +33,12 @@ class Equipment(models.Model):
         ('serial_number_unique', 'unique(serial_number)', 'Serial Number must be unique when provided.'),
     ]
 
+    @api.constrains('asset_code')
+    def _check_asset_code(self):
+        for record in self:
+            if not record.asset_code or not record.asset_code.strip():
+                raise ValidationError('Asset Code cannot be empty or whitespace.')
+
     @api.depends('request_ids.state')
     def _compute_request_count(self):
         for record in self:
